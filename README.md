@@ -26,7 +26,8 @@ cd scripts
 bash 1-get_info.sh SCGRES_90
 bash 1-get_info.sh SCGRES_91
 ```
-### 2.2 The output will be two different info files. We need to merge them together and to rename the subproject column to "SCGRES_90_91":
+### 2.2 Merge output
+The output will be two different info files. We need to merge them together and to rename the subproject column to "SCGRES_90_91":
 
 ```console
 cat info_SCGRES_90.txt > info.txt
@@ -34,7 +35,8 @@ tail -n +2 info_SCGRES_91.txt >> info.txt
 awk -F'\t' 'NR==1 {print; next} {OFS=FS; $2="SCGRES_90_91"; print}' info.txt > temp && mv temp info.txt
 ```
 
-### 2.3 Now we need to filter for **LanePassFail == pass** and **libraryPassFail == pass**:
+### 2.3 Filter
+Now we need to filter for **LanePassFail == pass** and **libraryPassFail == pass**:
 
 ```console
 awk -F'\t' '$13=="pass" && $14=="pass"' info.txt  > info.txt
